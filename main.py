@@ -15,7 +15,6 @@ from decimal import Decimal
 import json
 import os
 import sys
-import argparse
 import logging
 from dotenv import load_dotenv
 from chain_harvester.networks.ethereum.mainnet import EthereumMainnetChain
@@ -170,9 +169,5 @@ def main():
     logging.info("Script finished.")
 
 
-# Entry point for the script
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Brief description of the script.")
-
-    # Call the main function
     main()
