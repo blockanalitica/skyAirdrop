@@ -119,7 +119,7 @@ def get_boosted_wallets_rewards(chain):
             )
         )
 
-    ignore_earned = chain.multicall(calls, block_identifier=START_BLOCK)
+    ignore_earned = chain.multicall(calls, block_identifier=START_BLOCK - 1)
     earned = chain.multicall(calls, block_identifier=END_BLOCK)
     total_rewards = 0
     boosted_rewards = defaultdict(Decimal)
