@@ -31,8 +31,8 @@ load_dotenv()
 
 
 CONTRACT_START_BLOCK = 20692595
-START_BLOCK = 20777041
-END_BLOCK = 20969822
+START_BLOCK = 20777633
+END_BLOCK = 20978279
 
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 ETHEREUM_RPC_NODE = os.getenv("ETHEREUM_RPC_NODE")
@@ -41,7 +41,20 @@ FARM_ADDRESS = "0x0650caf159c5a49f711e8169d4336ecb9b950275"
 
 
 def get_start_block(chain):
-    timestamp = int(datetime.datetime(2024, 9, 18, 13, 0, 0).timestamp())
+    timestamp = int(
+        datetime.datetime(
+            2024, 9, 18, 13, 0, 0, tzinfo=datetime.timezone.utc
+        ).timestamp()
+    )
+    return chain.get_block_for_timestamp(timestamp)
+
+
+def get_end_block(chain):
+    timestamp = int(
+        datetime.datetime(
+            2024, 10, 16, 13, 0, 0, tzinfo=datetime.timezone.utc
+        ).timestamp()
+    )
     return chain.get_block_for_timestamp(timestamp)
 
 
