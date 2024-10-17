@@ -108,7 +108,7 @@ def get_claimed_balances(chain):
     claimed_rewards = defaultdict(Decimal)
     for event in get_rewards_paid_events(chain):
         wallet_address = event["args"]["user"].lower()
-        reward = normalize_to_decimal(event["args"]["reward"], 18)
+        reward = event["args"]["reward"]
         if event["blockNumber"] < START_BLOCK:
             ignore_claimed_rewards[wallet_address] += reward
         else:
@@ -139,11 +139,8 @@ def get_boosted_wallets_rewards(chain):
     for wallet in boosted_wallets:
         rewards = (
             claimed_rewards[wallet]
-            + normalize_to_decimal(earned[wallet], 18)
-            - (
-                ignore_claimed_rewards[wallet]
-                + normalize_to_decimal(ignore_earned[wallet], 18)
-            )
+            + earned[wallet]
+            - (ignore_claimed_rewards[wallet] + ignore_earned[wallet])
         )
         boosted_rewards[wallet] = rewards
         total_rewards += rewards
