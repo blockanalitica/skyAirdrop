@@ -111,8 +111,7 @@ def get_claimed_balances(chain):
         reward = event["args"]["reward"]
         if event["blockNumber"] < START_BLOCK:
             ignore_claimed_rewards[wallet_address] += reward
-        else:
-            claimed_rewards[wallet_address] += reward
+        claimed_rewards[wallet_address] += reward
     return ignore_claimed_rewards, claimed_rewards
 
 
@@ -172,8 +171,8 @@ def main():
     )
 
     boosted_rewards, total_rewards = get_boosted_wallets_rewards(chain)
-
-    generate_json(boosted_rewards)
+    sorted_dict = dict(sorted(boosted_rewards.items()))
+    generate_json(sorted_dict)
 
     logging.info(f"Total Rewards: {total_rewards}")
     logging.info("Script finished.")
